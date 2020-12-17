@@ -1,6 +1,3 @@
-from typing import Optional
-from operator import itemgetter
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -30,7 +27,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-deta = Deta("x")
+deta = Deta("")
 records = deta.Base("recordsDB")
 
 
@@ -69,6 +66,7 @@ def get_leaderboad(top: int = 3, avg_time_based: bool = False):
 @app.put("/records/{gameId}")
 def update_record(gameId: str, record: Record):
     updates = {
+        "player": record.player,
         "score": record.score,
         "time": record.time
     }
