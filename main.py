@@ -1,7 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
 from deta import Deta
 
 
@@ -9,8 +8,8 @@ app = FastAPI()
 
 
 origins = [
-    "http://set-ready-go.herokuapp.com"
-    "https://set-ready-go.herokuapp.com"
+    "http://set-ready-go.herokuapp.com",
+    "https://set-ready-go.herokuapp.com",
     "http://localhost",
     "https://localhost",
     "http://localhost:3000",
@@ -27,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-deta = Deta("")
+deta = Deta("a0ug1cgn_Zx4Em25yCZidEZRGZHWY85QdBSyRqZvb")
 records = deta.Base("recordsDB")
 
 
@@ -56,9 +55,15 @@ def create_record(record: Record):
 def get_leaderboad(top: int = 3, avg_time_based: bool = False):
     full_leaderboard = list(records.fetch())
     if avg_time_based:
-        sorted_leaderboard = sorted(full_leaderboard[0], key=lambda val: val["time"]/val["score"])
+        sorted_leaderboard = sorted(full_leaderboard[0],
+                                    key=lambda val: val["time"]/val["score"])
     else:
-        sorted_leaderboard = sorted(full_leaderboard[0], key=lambda val: val["score"], reverse=True)
+        sorted_by_time = sorted(full_leaderboard[0],
+                                key=lambda val: val["time"],
+                                reverse=True)
+        sorted_leaderboard = sorted(sorted_by_time,
+                                    key=lambda val: val["score"],
+                                    reverse=True)
 
     return sorted_leaderboard[:top]
 
@@ -73,3 +78,11 @@ def update_record(gameId: str, record: Record):
     records.update(updates, gameId)
 
     return record
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
