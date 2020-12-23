@@ -26,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-deta = Deta("a0ug1cgn_Zx4Em25yCZidEZRGZHWY85QdBSyRqZvb")
+deta = Deta("")
 records = deta.Base("recordsDB")
 
 
@@ -79,10 +79,3 @@ def update_record(gameId: str, record: Record):
 
     return record
 
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
