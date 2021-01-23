@@ -26,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-deta = Deta("")
+deta = Deta("a0ug1cgn_Zx4Em25yCZidEZRGZHWY85QdBSyRqZvb")
 records = deta.Base("recordsDB")
 
 
@@ -59,8 +59,7 @@ def get_leaderboad(top: int = 3, avg_time_based: bool = False):
                                     key=lambda val: val["time"]/val["score"])
     else:
         sorted_by_time = sorted(full_leaderboard[0],
-                                key=lambda val: val["time"],
-                                reverse=True)
+                                key=lambda val: val["time"])
         sorted_leaderboard = sorted(sorted_by_time,
                                     key=lambda val: val["score"],
                                     reverse=True)
