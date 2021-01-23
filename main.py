@@ -26,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-deta = Deta("a0ug1cgn_Zx4Em25yCZidEZRGZHWY85QdBSyRqZvb")
+deta = Deta("")
 records = deta.Base("recordsDB")
 
 
