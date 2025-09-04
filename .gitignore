@@ -1,0 +1,10 @@
+__pycache__
+venv
+*.db
+.pytest_cache
+.vscode
+*.log
+.env
+.mypy_cache
+.supervisor
+.systemd

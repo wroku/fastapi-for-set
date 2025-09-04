@@ -1,2 +1,2 @@
 # fastapi-for-set
-Very minimal REST API designed to serve as a leaderboard for <a href="https://github.com/wroku/set-game-react">SET game</a>. It allows to add new game record, update score&time continously according to achived progress and GET chosen number of best entries, sorted by total score or average time. I hosted it on Deta micro cloud.
+Very minimal REST API designed to serve as a leaderboard for <a href="https://github.com/wroku/set-game-react">SET game</a>. It allows to add new game record, update score&time continously according to achived progress and GET chosen number of best entries, sorted by total score or average time. I hosted it on ~~Deta micro cloud~~ Google Compute Engine.
